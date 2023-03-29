@@ -1,0 +1,67 @@
+/******************************************************************************
+
+Welcome to GDB Online.
+  GDB online is an online compiler and debugger tool for C, C++, Python, PHP, Ruby, 
+  C#, OCaml, VB, Perl, Swift, Prolog, Javascript, Pascal, COBOL, HTML, CSS, JS
+  Code, Compile, Run and Debug online from anywhere in world.
+
+*******************************************************************************/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+// define Student struct
+typedef struct {
+  char name[10];
+  long int registration[12];
+  float av1, av2, av3;
+} Student;
+
+// define Class struct, with an array of 2 students
+typedef struct {
+  char name[10];
+  int codediscipline[12];
+  Student students[2];
+} Class;
+
+int main() {
+
+  // create Class instance with name "Est.em C" and discipline code 000
+  Class class1 = {"Est.em C", 000, {{"John", {123456789012}, 8.0, 7.0, 9.0},
+                                    {"Mary", {345678901234}, 6.0, 5.0, 7.0}}};
+
+  // define mediaStudent function to calculate the student's average grade
+  float mediaStudent(Student student) {
+    float lowestGrade;
+    if (student.av1 <= student.av2 && student.av1 <= student.av3) {
+      lowestGrade = student.av1;
+      return (student.av2 + student.av3) / 2.0;
+    }
+    else if (student.av2 <= student.av1 && student.av2 <= student.av3) {
+      lowestGrade = student.av2;
+      return (student.av1 + student.av3) / 2.0;
+    }
+    else {
+      lowestGrade = student.av3;
+      return (student.av1 + student.av2) / 2.0;
+    }
+  }
+
+  // define situationStudent function to print the student's situation (approved or disapproved)
+  void situationStudent(Student student) {
+    float media = mediaStudent(student);
+    if (media >= 6.0) {
+      printf("%s Aproved\n", student.name);
+    }
+    else {
+      printf("%s Disapproved\n", student.name);
+    }
+  }
+
+  // call situationStudent for each student in class1
+  for (int i = 0; i < 2; i++) {
+    situationStudent(class1.students[i]);
+  }
+
+  return 0;
+}
